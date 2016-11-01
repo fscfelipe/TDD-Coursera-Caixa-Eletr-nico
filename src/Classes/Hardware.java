@@ -1,3 +1,4 @@
+package Classes;
 
 public interface Hardware {
 	public String pegarNumeroDaContaCartao();
