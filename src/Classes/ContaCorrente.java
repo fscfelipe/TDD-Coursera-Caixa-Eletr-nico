@@ -48,12 +48,12 @@ public class ContaCorrente {
 		this.senha = senha;
 
 	}
-	
-	private void setNumeroConta(String numeroConta){
+
+	private void setNumeroConta(String numeroConta) {
 		this.numeroConta = numeroConta;
 	}
-	
-	private String getNumeroConta(){
+
+	public String getNumeroConta() {
 		return numeroConta;
 	}
 
