@@ -1,5 +1,7 @@
 package Classes;
 
+import Exceções.SaldoInsuficiente;
+
 public class ContaCorrente {
 
 	private String usuario;
@@ -34,13 +36,13 @@ public class ContaCorrente {
 		return numeroConta;
 	}
 
-	public double sacar(double valorSacado) {
-		if (valorSacado <= valor) {
+	public double sacar(double valorSacado) throws SaldoInsuficiente {
+		if (valorSacado <= valor && valorSacado > 0) {
 			valor = valor - valorSacado;
 			return valorSacado;
 		}
 
-		return 0.0;
+		throw new SaldoInsuficiente("Saldo Insuficiente");
 
 	}
 

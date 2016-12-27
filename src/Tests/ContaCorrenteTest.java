@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import Classes.ContaCorrente;
 import Classes.MockServicoRemoto;
+import Exceções.SaldoInsuficiente;
 
 public class ContaCorrenteTest {
 
@@ -21,6 +22,12 @@ public class ContaCorrenteTest {
 
 		conta = new ContaCorrente("Felipe", "12345", "155XXA");
 		boolean flag = false;
+	}
+	
+	@Test(expected= SaldoInsuficiente.class)
+	public void testSacarSemSaldo() throws SaldoInsuficiente{
+		conta.depositar(500.0);
+		conta.sacar(700.0);
 	}
 
 	@Test
@@ -43,7 +50,11 @@ public class ContaCorrenteTest {
 	@Test
 	public void testSacar(){
 		conta.depositar(50.0);
-		conta.sacar(30.0);
+		try {
+			conta.sacar(30.0);
+		} catch (SaldoInsuficiente e) {
+			fail(e.getMessage());
+		}
 		assertEquals(20.0, conta.saldo(), 0.0);
 	}
 

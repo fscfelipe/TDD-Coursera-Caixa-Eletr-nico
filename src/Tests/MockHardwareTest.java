@@ -10,6 +10,7 @@ import Classes.ContaCorrente;
 import Classes.MockHardware;
 import Classes.MockServicoRemoto;
 import Exceções.FalhaDeFuncionamento;
+import Exceções.SaldoInsuficiente;
 
 public class MockHardwareTest {
 
@@ -46,7 +47,11 @@ public class MockHardwareTest {
 		caixa.logar("Felipe", "123", "77865");
 		servMock.adicionarConta(conta);
 		caixa.depositar(500.0);
-		caixa.sacar(200.0);
+		try {
+			caixa.sacar(200.0);
+		} catch (SaldoInsuficiente e) {
+			fail(e.getMessage());
+		}
 		
 		mock.entregarDinheiro();		
 	}

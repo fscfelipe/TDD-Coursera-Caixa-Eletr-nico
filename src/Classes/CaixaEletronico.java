@@ -1,5 +1,7 @@
 package Classes;
 
+import Exceções.SaldoInsuficiente;
+
 public class CaixaEletronico {
 
 	private MockServicoRemoto mock;
@@ -16,25 +18,25 @@ public class CaixaEletronico {
 
 	}
 
-	public String sacar(double valor) {
+	public String sacar(double valor) throws SaldoInsuficiente {
 
-		if (valor <= conta.saldo()){
+		try {
 			conta.sacar(valor);
-			this.persistir(conta);
-			return "Retire seu dinheiro";
+		} catch (SaldoInsuficiente e) {
+			throw new SaldoInsuficiente(e.getMessage());
 		}
-		else
-			return "Saldo insuficiente";
+		this.persistir(conta);
+
+		return "Retire seu dinheiro";
 
 	}
 
 	public String depositar(double valor) {
-		if (valor >= 0){
+		if (valor >= 0) {
 			conta.depositar(valor);
 			this.persistir(conta);
 			return "Depósito recebido com sucesso";
-		}
-		else
+		} else
 			return "Valor inválido!";
 
 	}
@@ -47,10 +49,9 @@ public class CaixaEletronico {
 	public void adicionarObservador(ServicoRemoto mock) {
 		this.mock = (MockServicoRemoto) mock;
 	}
-	
-	public void persistir(ContaCorrente conta){
+
+	public void persistir(ContaCorrente conta) {
 		this.mock.persistirConta(conta);
 	}
-	
 
 }

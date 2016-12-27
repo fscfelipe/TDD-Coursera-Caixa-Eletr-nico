@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import Classes.ContaCorrente;
 import Classes.MockServicoRemoto;
+import Exceções.SaldoInsuficiente;
 
 public class MockServicoRemotoTest {
 
@@ -47,7 +48,11 @@ public class MockServicoRemotoTest {
 				
 		conta.depositar(500.0);
 		mock.persistirConta(conta);
-		conta.sacar(200.0);
+		try {
+			conta.sacar(200.0);
+		} catch (SaldoInsuficiente e) {
+			fail(e.getMessage());
+		}
 		mock.persistirConta(conta);
 		
 		assertEquals(300.0, mock.recuperarConta("778").saldo(), 0.01);
