@@ -21,15 +21,17 @@ public class MockHardwareTest {
 	public void testPegarNumeroDaContaCartao() {
 		ContaCorrente conta = new ContaCorrente("Felipe", "123", "77865");
 		String numero;
-		mock.pegarNumeroDaContaCartao(conta);
-		numero = mock.getNumero();
+		numero = mock.pegarNumeroDaContaCartao(conta);
 		
 		assertEquals(numero, conta.getNumeroConta());
 	}
 
 	@Test
 	public void testEntregarDinheiro() {
-		fail("Not yet implemented");
+		ContaCorrente conta = new ContaCorrente("Felipe", "123", "77865");
+		conta.depositar(500.0);
+		
+		
 	}
 
 	@Test

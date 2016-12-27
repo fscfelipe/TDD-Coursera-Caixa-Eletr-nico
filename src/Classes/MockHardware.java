@@ -7,7 +7,7 @@ public class MockHardware implements Hardware {
 	@Override
 	public String pegarNumeroDaContaCartao(ContaCorrente conta) {
 		numero = conta.getNumeroConta();
-		return null;
+		return numero;
 	}
 
 	@Override
@@ -22,8 +22,5 @@ public class MockHardware implements Hardware {
 		
 	}
 	
-	public String getNumero(){
-		return numero;
-	}
 
 }
