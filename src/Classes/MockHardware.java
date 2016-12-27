@@ -2,9 +2,11 @@ package Classes;
 
 public class MockHardware implements Hardware {
 
+	String numero;
+	
 	@Override
-	public String pegarNumeroDaContaCartao() {
-		// TODO Auto-generated method stub
+	public String pegarNumeroDaContaCartao(ContaCorrente conta) {
+		numero = conta.getNumeroConta();
 		return null;
 	}
 
@@ -18,6 +20,10 @@ public class MockHardware implements Hardware {
 	public void lerEnvelope() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public String getNumero(){
+		return numero;
 	}
 
 }
