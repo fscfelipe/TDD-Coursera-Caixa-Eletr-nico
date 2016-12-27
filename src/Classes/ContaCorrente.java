@@ -25,8 +25,13 @@ public class ContaCorrente {
 		return valor;
 	}
 
-	public void depositar(double valorDeposito) {
-		valor = valor + valorDeposito;
+	public String depositar(double valorDeposito) {
+		if (valorDeposito >= 0)
+			valor = valor + valorDeposito;
+		else
+			return "Valor inválido!";
+		
+		return numeroConta;
 	}
 
 	public double sacar(double valorSacado) {

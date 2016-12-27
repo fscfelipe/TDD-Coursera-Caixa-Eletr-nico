@@ -16,12 +16,21 @@ public class MockServicoRemoto implements ServicoRemoto {
 	}
 
 	@Override
-	public void persistirConta() {
+	public void persistirConta(ContaCorrente conta) {
+		
+		for (ContaCorrente contaLista : listaContas) {
+			if (contaLista.getNumeroConta() == conta.getNumeroConta())
+				contaLista = conta;
+		}
 
 	}
 
 	public void adicionarConta(ContaCorrente conta) {
 		listaContas.add(conta);
+	}
+	
+	public void clearArray(){
+		listaContas.clear();
 	}
 
 }
