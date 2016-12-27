@@ -1,24 +1,25 @@
 package Classes;
 
+import Exceções.FalhaDeFuncionamento;
+
 public class MockHardware implements Hardware {
 
 	String numero;
 	
 	@Override
-	public String pegarNumeroDaContaCartao(ContaCorrente conta) {
+	public String pegarNumeroDaContaCartao(ContaCorrente conta) throws FalhaDeFuncionamento {
 		numero = conta.getNumeroConta();
 		return numero;
 	}
 
 	@Override
-	public void entregarDinheiro() {
-		// TODO Auto-generated method stub
-		
+	public void entregarDinheiro() throws FalhaDeFuncionamento {
+		throw new FalhaDeFuncionamento("Falha ao entregar dinheiro");
 	}
 
 	@Override
-	public void lerEnvelope() {
-		// TODO Auto-generated method stub
+	public void lerEnvelope() throws FalhaDeFuncionamento {
+		throw new FalhaDeFuncionamento("Falha ao ler envelope");
 		
 	}
 	

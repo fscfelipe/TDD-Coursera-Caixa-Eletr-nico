@@ -5,8 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import Classes.CaixaEletronico;
 import Classes.ContaCorrente;
 import Classes.MockHardware;
+import Classes.MockServicoRemoto;
+import Exceções.FalhaDeFuncionamento;
 
 public class MockHardwareTest {
 
@@ -19,24 +22,48 @@ public class MockHardwareTest {
 
 	@Test
 	public void testPegarNumeroDaContaCartao() {
+		
 		ContaCorrente conta = new ContaCorrente("Felipe", "123", "77865");
-		String numero;
-		numero = mock.pegarNumeroDaContaCartao(conta);
+		String numero = "";
+		try {
+			numero = mock.pegarNumeroDaContaCartao(conta);
+		} catch (FalhaDeFuncionamento e) {
+			fail(e.getMessage());
+		}
 		
 		assertEquals(numero, conta.getNumeroConta());
 	}
 
-	@Test
-	public void testEntregarDinheiro() {
+	@Test(expected=FalhaDeFuncionamento.class)
+	public void testEntregarDinheiro() throws FalhaDeFuncionamento {
+		CaixaEletronico caixa = new CaixaEletronico();
+		MockServicoRemoto servMock = new MockServicoRemoto();
+		caixa.adicionarObservador(servMock);
+		
 		ContaCorrente conta = new ContaCorrente("Felipe", "123", "77865");
-		conta.depositar(500.0);
+		servMock.adicionarConta(conta);
 		
+		caixa.logar("Felipe", "123", "77865");
+		servMock.adicionarConta(conta);
+		caixa.depositar(500.0);
+		caixa.sacar(200.0);
 		
+		mock.entregarDinheiro();		
 	}
 
-	@Test
-	public void testLerEnvelope() {
-		fail("Not yet implemented");
+	@Test(expected=FalhaDeFuncionamento.class)
+	public void testLerEnvelope() throws FalhaDeFuncionamento{
+		CaixaEletronico caixa = new CaixaEletronico();
+		MockServicoRemoto servMock = new MockServicoRemoto();
+		caixa.adicionarObservador(servMock);
+		
+		ContaCorrente conta = new ContaCorrente("Felipe", "123", "77865");
+		servMock.adicionarConta(conta);
+		
+		caixa.logar("Felipe", "123", "77865");
+		servMock.adicionarConta(conta);
+		
+		mock.lerEnvelope();
 	}
 
 }

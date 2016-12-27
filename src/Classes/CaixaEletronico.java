@@ -19,7 +19,8 @@ public class CaixaEletronico {
 	public String sacar(double valor) {
 
 		if (valor <= conta.saldo()){
-			mock.persistirConta(conta);
+			conta.sacar(valor);
+			this.persistir(conta);
 			return "Retire seu dinheiro";
 		}
 		else
@@ -29,6 +30,8 @@ public class CaixaEletronico {
 
 	public String depositar(double valor) {
 		if (valor >= 0){
+			conta.depositar(valor);
+			this.persistir(conta);
 			return "Depósito recebido com sucesso";
 		}
 		else
@@ -44,5 +47,10 @@ public class CaixaEletronico {
 	public void adicionarObservador(ServicoRemoto mock) {
 		this.mock = (MockServicoRemoto) mock;
 	}
+	
+	public void persistir(ContaCorrente conta){
+		this.mock.persistirConta(conta);
+	}
+	
 
 }
